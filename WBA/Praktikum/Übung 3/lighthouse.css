@@ -1,0 +1,31 @@
+#tower {
+    position: absolute;
+    top: 50%;
+    left: 150%;
+    z-index: 1;
+}
+
+#roof {
+    position: static;
+    top: 50%;
+    left: 156%;
+    transform: translate(155%, -276%);
+}
+
+#light {
+    position: relative;
+    transform: translate(0%, 34%);
+    left: 173%
+}
+
+#building {
+    position: absolute;
+    top: 200%;
+    left: 15%;
+}
+
+#rock {
+    position: absolute;
+    top: 259%;
+    z-index: 1;
+}

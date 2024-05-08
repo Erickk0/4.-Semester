@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys, os, argparse, json
+import pickle
 
 
 """
@@ -29,11 +30,68 @@ class NaiveBayesDocumentClassifier:
         """ The classifier should store all its learned information
             in this 'model' object. Pick whatever form seems appropriate
             to you. Recommendation: use 'pickle' to store/load this model! """
+        
         self.model = None
 
+# Hier mein CODE bitte einmap prüfen, 
+# habe ich die Wahrscheinlichkeiten richtig berechnet ??????
         
     def train(self, features, labels):
-        """
+# Neue dictionarys zum ablegen der Daten
+      self.py = {}
+      self.pxy = {}
+
+# Anzahl documente
+      documents_count = len(features)
+      
+      doc_count_per_class = {}
+      word_presence_per_class = {}
+
+
+
+     #initialisierung
+      for label in labels.values():
+        if label not in doc_count_per_class:
+            doc_count_per_class[label] = 0
+            word_presence_per_class[label] = {}
+
+            
+#anzahl dokumente pro label, anzahl dokumente jedes wort vorkommt
+
+      for doc_id, tokens in features.items():
+        label = labels[doc_id]
+        doc_count_per_class[label] += 1
+        for word in set(tokens):
+            if word in word_presence_per_class[label]:
+                word_presence_per_class[label][word] += 1
+            else:
+                word_presence_per_class[label][word] = 1
+
+
+# P(Y) füR jede Klasse
+      for label, count in doc_count_per_class.items():
+          self.py[label] = count / documents_count
+
+
+#P(X|Y)
+          for label in word_presence_per_class:
+             self.pxy[label] = {}
+             class_documents_count = doc_count_per_class[label]
+             for word, count in word_presence_per_class[label].items():
+                 self.pxy[label][word] = count / class_documents_count
+
+          print(self.pxy["sports"]["doctor"])
+
+
+
+# anzeige durch das Programm pickle_show.py
+      with open('classifier_model.pickle', 'wb') as f:
+          pickle.dump({'Py': self.py, 'Pxy': self.pxy}, f)
+
+                
+
+        
+      """
         trains a document classifier and stores all relevant
         information in 'self.model'.
 
@@ -68,9 +126,14 @@ class NaiveBayesDocumentClassifier:
                            ...
                        }
         """
-        raise NotImplementedError()
+        #raise NotImplementedError()
 
         # FIXME: implement training
+
+    
+
+
+
 
         # FIXME: at the end of training, store self.model using pickle.
 
@@ -135,4 +198,3 @@ if __name__ == "__main__":
 
 
             
-    

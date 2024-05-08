@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aufgabe 1</title>
+</head>
+<body>
+    <h1>Herzlich Willkommen!</h1>
+    <p>Das <em>ist</em> meine <strong>schöne</strong> Web-Seite</p>
+    <p><a href="Aufgabe%202.html">Das ist ein Verweis auf meine Vorlesungen</a></p>
+<div>
+<form action="https://wba.cs.hs-rm.de/form.php" method="post" id="formid">
+    <fieldset>
+    <legend>Geschlecht</legend>
+        <input type="radio" id="Herr" name="Geschlecht" value="Herr">
+            <label for="Herr">Herr</label><br>
+        <input type="radio" id="Frau" name="Geschlecht" value="Frau">
+            <label for="Frau">Frau</label><br>
+    </fieldset>
+    <fieldset>
+    <legend>Name</legend>
+        <label for="vname">Vorname:</label>
+            <input type="text" id="vname" name="vname" required="required"><br>
+        <label for="nname">Nachname:</label>
+            <input type="text" id="nname" name="nname" required="required"><br>
+    </fieldset>
+    <fieldset>
+    <legend>Anschrft</legend>
+        <label for="Straße">Straße:</label>
+            <input type="text" id="Straße" name="Straße"><br>
+        <label for="hnummer">Hausnummer:</label>
+            <input type="text" id="hnummer" name="hnummer"><br>
+        <label for="plz">PLZ:</label>
+            <input type="number" id="plz" name="plz"><br>
+        <label for="stadt">Stadt:</label>
+            <input type="text" id="stadt" name="stadt"><br>
+    </fieldset>
+    <fieldset>
+    <legend>Textfeld</legend>
+        <textarea id="w3review" name="textfeld" rows="20" cols="40"></textarea><br>
+    </fieldset>
+        <input type="submit" value="Submit">
+</form>
+</div>
+</body>
+</html>

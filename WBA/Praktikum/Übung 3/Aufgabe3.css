@@ -1,0 +1,13 @@
+h1,h2,h3{
+    text-transform: uppercase;
+    text-align: center;
+}
+h1{
+    color: green;
+    font-family: "ModiusFrigid", sans-serif;
+    /*font-family: "Chalkboard SE", sans-serif;*/
+}
+@font-face {
+    font-family: ModiusFrigid;
+    src: url("/Users/erickzeiler/Desktop/4.-Semester/WBA/Praktikum/Übung 3/ModiusFrigid.woff") format("woff");
+}

@@ -1,0 +1,41 @@
+table{
+    border: 0px;
+}
+
+th{
+    font-weight: bold;
+}
+
+.preise{
+    text-align: right;
+}
+
+.center{
+     margin-right: auto;
+}
+
+caption{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#MSR{
+    width: 40px;
+}
+
+#RC{
+    width: 40px;
+}
+
+#SSR{
+    width: 40px;
+}
+
+#DARS{
+    width: 40px;
+}
+
+#Artikel{
+    text-align: left;
+}
