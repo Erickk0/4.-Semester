@@ -1,3 +1,7 @@
+/**
+ * Funktion, die den Betrag eines Vektors berechnet
+ * @param {number} a - Spalten des Vektors
+ */
 function betrag(a) {
     console.log("|a|= ", Math.sqrt(a ** 2 + a ** 2));
 }

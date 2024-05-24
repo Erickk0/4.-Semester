@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /*let inputs = document.querySelectorAll('.anz');
     inputs.forEach(function(input) {
     input.addEventListener('change', checkFlaschenAnzahl);
-    });*/
+    }); mögliche Lösung, die */
 
 function inputdisabled(){
     let preisInputs = document.querySelectorAll('.preis');
