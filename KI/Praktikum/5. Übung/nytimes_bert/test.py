@@ -1,4 +1,3 @@
-
 from model import NYTimesBERT
 from dataset import NYTimesDataset
 from train import run_training
