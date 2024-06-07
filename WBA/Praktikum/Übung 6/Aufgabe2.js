@@ -1,17 +1,45 @@
-function Animal(avgage, name) {
-    this.avgage = avgage;
-    this.name = name;
-
+ /**
+ * Represents an Animal.
+ * @constructor
+ */
+function Animal() {
+    this.age = 0;
+    this.averageAge = 0;
 }
 
-Animal.prototype.setAge = function(age) {
-    console.log("Age: " + age);
+/**
+ * Gets the age of the animal.
+ * @returns {number} The age of the animal.
+ */
+Animal.prototype.getAge = function() {
+    return this.age;
 }
 
-Animal.prototype.getAge = function(age) {
-    console.log("Age: " + age);
+/**
+ * Sets the age of the animal.
+ * @param {number} newAge - The new age to set.
+ */
+Animal.prototype.setAge = function(newAge) {
+    this.age = newAge;
 }
 
-    let Elephant = new Animal(70, "Tizian");
-    console.log("Elephant: ", Elephant.name ,Elephant.avgage);
-    Elephant.setAge(20);
+/**
+ * Gets the average age of the animal.
+ * @returns {number} The average age of the animal.
+ */
+Animal.prototype.getAverageAge = function() {
+    return this.averageAge;
+}
+
+/**
+ * Represents an Elephant.
+ * @constructor
+ * @extends Animal
+ */
+function Elephant() {
+    Animal.call(this);
+    this.averageAge = 70;
+}
+
+Elephant.prototype = Object.create(Animal.prototype);
+Elephant.prototype.constructor = Elephant;

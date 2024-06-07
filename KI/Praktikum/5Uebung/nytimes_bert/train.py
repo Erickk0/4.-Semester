@@ -42,7 +42,6 @@ class MyCheckpointCallback(Callback):
         self.epoch += 1
 
 
-
 def run_training(labeled_docs_train, labeled_docs_valid, epochs):
     dataset_train = NYTimesDataset(labeled_docs_train)
     dataset_valid = NYTimesDataset(labeled_docs_valid)
@@ -59,26 +58,32 @@ def run_training(labeled_docs_train, labeled_docs_valid, epochs):
                                   persistent_workers=True,
                                   collate_fn=collate_fn_pad)
     model = NYTimesBERT(len(dataset_train.class2int))
+    print("Model initialized:", model)
 
     logger = WandbLogger(project='NYTimesBERT')
+    print("Logger initialized")
     my_checkpoint_callback = MyCheckpointCallback('checkpoints')
+    print("Checkpoint callback initialized")
 
-    trainer = Trainer(logger=logger,
-                      log_every_n_steps=1,
-                      min_epochs=epochs,
-                      max_epochs=epochs,
-                      gpus=1 if torch.cuda.is_available() else 0,
-                      callbacks=[my_checkpoint_callback])
+    try:
+        trainer = Trainer(logger=logger, callbacks=[my_checkpoint_callback])
+        print("Trainer initialized")
+    except Exception as e:
+        print("Error initializing Trainer:", e)
+        raise
+
+    print("Starting validation...")
     trainer.validate(model, dataloaders=dataloader_valid)
+    print("Validation done")
+
+    print("Starting training...")
     trainer.fit(model, dataloader_train, dataloader_valid)
+    print("Training done")
 
     return model
 
 
-
-
 if __name__ == '__main__':
-
     if len(sys.argv) < 3:
         print('USAGE: train.py <training_path> <valid_path>')
         exit(1)
@@ -87,5 +92,14 @@ if __name__ == '__main__':
         labeled_docs_train = json.load(f)['docs']
     with open(sys.argv[2], 'r') as f:
         labeled_docs_valid = json.load(f)['docs']
+
+    print("Loaded training and validation data.")
+    print(f"Training data size: {len(labeled_docs_train)}")
+    print(f"Validation data size: {len(labeled_docs_valid)}")
+
+    print("CONFIG values:")
+    print(f"EPOCHS: {CONFIG.EPOCHS}")
+    print(f"BATCH_SIZE: {CONFIG.BATCH_SIZE}")
+    print(f"NUM_WORKERS: {CONFIG.NUM_WORKERS}")
 
     model = run_training(labeled_docs_train, labeled_docs_valid, epochs=CONFIG.EPOCHS)
