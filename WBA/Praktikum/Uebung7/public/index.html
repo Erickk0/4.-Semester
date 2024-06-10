@@ -8,37 +8,45 @@
         table {
             border: 0;
         }
+
         th {
             font-weight: bold;
         }
+
         .preise {
             text-align: right;
         }
+
         .center {
             margin-right: auto;
         }
+
         .preis {
             width: 50px;
             text-align: right;
         }
+
         caption {
             font-size: 25px;
             font-weight: bold;
             text-align: left;
         }
+
         .anz {
             width: 40px;
         }
+
         #Artikel {
             text-align: left;
         }
+
         #EP {
             text-align: right;
         }
     </style>
 </head>
 <body>
-<form action="/Uebung7/public" method="post">
+<form action="/submit" method="post">
     <table class="center">
         <caption>Bestellformular</caption>
         <thead>
@@ -50,38 +58,39 @@
         </tr>
         </thead>
         <tbody id="weinForm">
-        <!-- Dynamisch generierte Weinreihen -->
+        <!-- Dynamically generated wine rows will go here -->
         </tbody>
         <tfoot>
         <tr>
             <td><input type="radio" id="DHL" name="versand" value="DHL"></td>
             <td><label for="DHL">Versand DHL (bis 12 Flaschen)</label></td>
             <td class="preise">10.00</td>
-            <td><input type="text" id="preisDHL" class="preis" readonly disabled></td>
+            <td><label for="preisDHL"></label><input type="text" id="preisDHL" class="preis" readonly disabled></td>
         </tr>
         <tr>
             <td><input type="radio" id="Spedition" name="versand" value="Spedition"></td>
             <td><label for="Spedition">Versand Spedition</label></td>
             <td class="preise">15.00</td>
-            <td><input type="text" id="preisSpedition" class="preis" readonly disabled></td>
+            <td><label for="preisSpedition"></label><input type="text" id="preisSpedition" class="preis" readonly
+                                                           disabled></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td>Zwischensumme</td>
-            <td><input type="text" id="zs" class="preis" readonly disabled></td>
+            <td><label for="zs"></label><input type="text" id="zs" class="preis" readonly disabled></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td class="preise">MwSt</td>
-            <td><input type="text" id="mwst" class="preis" readonly disabled></td>
+            <td><label for="mwst"></label><input type="text" id="mwst" class="preis" readonly disabled></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <th class="preise">Summe</th>
-            <td><input type="text" id="Summe" class="preis" readonly disabled></td>
+            <td><label for="Summe"></label><input type="text" id="Summe" class="preis" readonly disabled></td>
         </tr>
         </tfoot>
     </table>
