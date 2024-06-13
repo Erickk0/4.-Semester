@@ -26,9 +26,18 @@ app.post('/submit', (req, res) => {
     // Calculate the total number of bottles and price
     for (let key in bottles) {
         if (key.startsWith('wein')) {
-            const quantity = parseInt(bottles[key], 10);
-            const price = parseFloat(req.body[`summe${key.replace('wein', '')}`]);
-            if (!isNaN(quantity) && quantity > 0) {
+            let quantity = parseInt(bottles[key], 10);
+            let price = parseFloat(req.body[`summe${key.replace('wein', '')}`]);
+
+            // If quantity or price is NaN, set them to 0
+            if (isNaN(quantity)) {
+                quantity = 0;
+            }
+            if (isNaN(price)) {
+                price = 0;
+            }
+
+            if (quantity > 0) {
                 totalBottles += quantity;
                 totalPrice += quantity * price;
             }
@@ -47,10 +56,9 @@ app.post('/submit', (req, res) => {
     totalPrice += shippingCost;
     const vat = totalPrice * 0.19;
     const finalPrice = totalPrice + vat;
-    parseFloat(finalPrice.toFixed(2));
 
     // Store the results in global variables
-    globalTotalBottles = parseFloat(totalBottles.toFixed(2));
+    globalTotalBottles = totalBottles;
     globalTotalPrice = parseFloat(finalPrice.toFixed(2));
 
     // Respond with the calculated details
@@ -64,7 +72,6 @@ app.post('/submit', (req, res) => {
     </html>
   `);
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
