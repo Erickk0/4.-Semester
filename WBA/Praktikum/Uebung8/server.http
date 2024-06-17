@@ -1,0 +1,25 @@
+### Neue Nachrichten in die Datenbank einzufugen
+POST http://localhost:3000/news/
+Content-Type: application/json
+
+{
+  "message": "my new message"
+}
+###
+
+### Nachrichten von einem bestimmten Tag abrufen.
+GET http://localhost:3000/news/2024-06-11
+###
+
+### Löschen einer Nachricht mit newsid.
+DELETE http://localhost:3000/news/1
+###
+
+### Nachricht mit einer bestimmten newsid ändern
+PATCH http://localhost:3000/news/2
+Content-Type: application/json
+
+{
+  "message": "my updated message"
+}
+###
