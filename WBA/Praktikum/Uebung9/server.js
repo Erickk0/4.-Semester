@@ -5,10 +5,11 @@ const path = require('path');
 
 // MySQL Datenbankverbindung
 const db = mysql.createConnection({
-  host: 'mariadb1.local.cs.hs-rm.de',
+  host: 'localhost',
   user: 'ezeil001',
   password: '15181-Fa2',
-  database: 'vier_gewinnt'
+  database: 'vier_gewinnt',
+  port: 3306
 });
 
 db.connect((err) => {
@@ -50,7 +51,7 @@ app.get('/highscores', (req, res) => {
   });
 });
 
-const port = 3000;
+const port = 3306;
 const hostname = 'localhost';
 app.listen(port, hostname, () => {
     console.log(`Server is running on http://${hostname}:${port}`);

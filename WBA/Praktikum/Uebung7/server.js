@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'Aufgabe_1.html'));
 });
 
 app.post('/submit', (req, res) => {
@@ -23,21 +23,20 @@ app.post('/submit', (req, res) => {
     let totalBottles = 0;
     let totalPrice = 0;
 
+    // Debugging: Print received form data
+    console.log('Received form data:', bottles);
+
     // Calculate the total number of bottles and price
     for (let key in bottles) {
         if (key.startsWith('wein')) {
-            let quantity = parseInt(bottles[key], 10);
-            let price = parseFloat(req.body[`summe${key.replace('wein', '')}`]);
+            const quantity = parseInt(bottles[key], 10);
+            const priceKey = `price${key.replace('wein', '')}`;
+            const price = parseFloat(bottles[priceKey]);
 
-            // If quantity or price is NaN, set them to 0
-            if (isNaN(quantity)) {
-                quantity = 0;
-            }
-            if (isNaN(price)) {
-                price = 0;
-            }
+            // Debugging: Print quantity and price for each wine
+            console.log(`Wine: ${key}, Quantity: ${quantity}, Price: ${price}`);
 
-            if (quantity > 0) {
+            if (!isNaN(quantity) && quantity > 0 && !isNaN(price)) {
                 totalBottles += quantity;
                 totalPrice += quantity * price;
             }
@@ -57,9 +56,12 @@ app.post('/submit', (req, res) => {
     const vat = totalPrice * 0.19;
     const finalPrice = totalPrice + vat;
 
+    // Debugging: Print final price calculations
+    console.log(`Total Bottles: ${totalBottles}, Total Price: ${totalPrice}, Final Price: ${finalPrice}`);
+
     // Store the results in global variables
     globalTotalBottles = totalBottles;
-    globalTotalPrice = parseFloat(finalPrice.toFixed(2));
+    globalTotalPrice = finalPrice.toFixed(2);
 
     // Respond with the calculated details
     res.send(`

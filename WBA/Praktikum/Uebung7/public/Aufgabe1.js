@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let weine = [
-        ["Marienthaler Stiftsberg Rotweincuvee", 3.60],
+        ["Marienthaler Stiftsberg RotweincuvÃ©e", 3.60],
         ["Riesling Classic", 3.70],
         ["Silvaner Selection Rheinhessen", 6.90],
         ["Domaine Avelsbach Riesling Sekt", 6.15]
@@ -28,14 +28,21 @@ document.addEventListener('DOMContentLoaded', function () {
         input.setAttribute('data-price', winePrice);
 
         const priceInput = document.createElement('input');
-        priceInput.type = 'text';
+        priceInput.type = 'hidden';
         priceInput.name = `price${index}`;
-        priceInput.classList.add('preis');
-        priceInput.setAttribute('readonly', 'true');
+        priceInput.value = winePrice.toFixed(2);
+
+        const displayedPrice = document.createElement('input');
+        displayedPrice.type = 'text';
+        displayedPrice.name = `displayedPrice${index}`;
+        displayedPrice.classList.add('preis');
+        displayedPrice.setAttribute('readonly', 'true');
+        displayedPrice.value = "0.00";
 
         bottlesCell.appendChild(input);
         nameCell.innerText = wineName;
         priceCell.innerText = winePrice.toFixed(2);
+        totalPriceCell.appendChild(displayedPrice);
         totalPriceCell.appendChild(priceInput);
 
         row.appendChild(bottlesCell);
@@ -50,10 +57,10 @@ document.addEventListener('DOMContentLoaded', function () {
     inputs.forEach(input => {
         input.addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
+            calculateWinePrice();
         });
 
         input.addEventListener('change', checkBottleAmount);
-        input.addEventListener('change', calculateWinePrice);
     });
 
     document.getElementById('DHL').addEventListener('change', calculateWinePrice);
@@ -67,8 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        const dhlInput = document.getElementById('DHL');
-        if(bottleCount > 12){
+        if (bottleCount > 12) {
             document.getElementById('DHL').disabled = true;
             document.getElementById('Spedition').checked = true;
         } else {
@@ -82,14 +88,14 @@ document.addEventListener('DOMContentLoaded', function () {
         inputs.forEach(input => {
             const quantity = parseFloat(input.value);
             const price = parseFloat(input.getAttribute('data-price'));
-            const priceInput = document.querySelector(`input[name="price${input.name.replace('wein', '')}"]`);
+            const priceInput = document.querySelector(`input[name="displayedPrice${input.name.replace('wein', '')}"]`);
 
             if (!isNaN(quantity) && quantity > 0) {
                 const totalItemPrice = (quantity * price).toFixed(2);
                 priceInput.value = totalItemPrice;
                 zs += parseFloat(totalItemPrice);
             } else {
-                priceInput.value = '';
+                priceInput.value = '0.00';
             }
         });
 
@@ -100,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         zs += dhlPrice + speditionPrice;
 
-        document.getElementById('preisDHL').value = dhlPrice ? dhlPrice.toFixed(2) : '';
-        document.getElementById('preisSpedition').value = speditionPrice ? speditionPrice.toFixed(2) : '';
+        document.getElementById('preisDHL').value = dhlPrice ? dhlPrice.toFixed(2) : '0.00';
+        document.getElementById('preisSpedition').value = speditionPrice ? speditionPrice.toFixed(2) : '0.00';
         document.getElementById('zs').value = zs.toFixed(2);
 
         const mwstAmount = (zs * 0.19).toFixed(2);
@@ -114,9 +120,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function disableInputs() {
         const priceInputs = document.querySelectorAll('.preis');
         priceInputs.forEach(function (input) {
-            document.getElementById('weinForm').onkeyup = function(){checkBottleAmount(), calculateWinePrice()};
             input.setAttribute('disabled', 'true');
         });
+        document.getElementById('weinForm').onkeyup = function(){checkBottleAmount(), calculateWinePrice()};
     }
 
     disableInputs();
