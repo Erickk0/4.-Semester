@@ -1,0 +1,24 @@
+URI: /news/
+HTTP: POST
+DESC: Neue Nachricht in Datenbank einfügen
+TYP: JSON
+
+
+URI: /news/<date>
+HTTP: GET
+DESC: Nachrichten eines bestimmten Tages aufrufen
+TYP: JSON
+
+
+URI: /news/<news_id>
+HTTP: PUT
+DESC: Ändert eine Nachricht mit einer bestimmten news_id ab
+TYP: JSON
+
+
+URI: /news/<news_id>
+HTTP: DELETE
+DESC: Löscht eine Nachricht mit einer bestimmten news_id
+TYP: JSON
+
+

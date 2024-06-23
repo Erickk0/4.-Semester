@@ -8,7 +8,7 @@ Content-Type: application/json
 ###
 
 ### Nachrichten von einem bestimmten Tag abrufen.
-GET http://localhost:3000/news/2024-06-11
+GET http://localhost:3000/news/2024-06-20
 ###
 
 ### Löschen einer Nachricht mit newsid.
@@ -16,7 +16,7 @@ DELETE http://localhost:3000/news/1
 ###
 
 ### Nachricht mit einer bestimmten newsid ändern
-PATCH http://localhost:3000/news/2
+PUT http://localhost:3000/news/2
 Content-Type: application/json
 
 {
