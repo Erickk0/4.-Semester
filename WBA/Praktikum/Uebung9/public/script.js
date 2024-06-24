@@ -101,10 +101,23 @@ function checkWin(row, col) {
 }
 
 function saveScore() {
-  $.post('/save-score', { playerName, score: board.flat().filter(x => x !== 0).length }, () => {
-    loadHighscores();
+  const score = board.flat().filter(x => x !== 0).length;
+  console.log('Saving score:', { playerName, score }); // Log the data being sent
+
+  $.ajax({
+    url: '/save-score',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ playerName, score }),
+    success: () => {
+      loadHighscores();
+    },
+    error: (jqXHR, textStatus, errorThrown) => {
+      console.error('Error saving score:', textStatus, errorThrown);
+    }
   });
 }
+
 
 function loadHighscores() {
   $.get('/highscores', (data) => {

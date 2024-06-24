@@ -9,7 +9,7 @@ const pool = mariadb.createPool({
     },
     user: 'xxx',
     password: 'xxx',
-    database: 'news',
+    database: 'xxx',
     connectionLimit: 10,
     acquireTimeout: 20000
 });
