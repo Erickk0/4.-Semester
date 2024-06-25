@@ -2,6 +2,9 @@ let playerName = '';
 let board = [];
 let currentPlayer = 1;
 
+/**
+ * Starts the game by setting the player's name and initializing the game board.
+ */
 function startGame() {
   playerName = $('#name').val();
   if (!playerName) {
@@ -12,11 +15,17 @@ function startGame() {
   initializeBoard();
 }
 
+/**
+ * Initializes the game board with empty cells.
+ */
 function initializeBoard() {
   board = Array.from({ length: 6 }, () => Array(7).fill(0));
   renderBoard();
 }
 
+/**
+ * Renders the game board on the screen.
+ */
 function renderBoard() {
   $('#board').empty();
   for (let row = 0; row < 6; row++) {
@@ -32,6 +41,10 @@ function renderBoard() {
   $('.cell').click(handleCellClick);
 }
 
+/**
+ * Handles the click event on a cell.
+ * @param {Event} event - The click event.
+ */
 function handleCellClick(event) {
   const col = $(event.target).data('col');
   for (let row = 5; row >= 0; row--) {
@@ -57,6 +70,9 @@ function handleCellClick(event) {
   }
 }
 
+/**
+ * Simulates a move by the computer.
+ */
 function computerMove() {
   let col;
   do {
@@ -65,6 +81,12 @@ function computerMove() {
   handleCellClick({ target: $(`[data-col="${col}"]`).get(0) });
 }
 
+/**
+ * Checks if the current player has won the game.
+ * @param {number} row - The row index of the last move.
+ * @param {number} col - The column index of the last move.
+ * @returns {boolean} True if the current player has won, otherwise false.
+ */
 function checkWin(row, col) {
   const directions = [
     { row: 0, col: 1 }, // horizontal
@@ -100,6 +122,9 @@ function checkWin(row, col) {
   return false;
 }
 
+/**
+ * Saves the score of the current player.
+ */
 function saveScore() {
   const score = board.flat().filter(x => x !== 0).length;
   console.log('Saving score:', { playerName, score }); // Log the data being sent
@@ -118,7 +143,9 @@ function saveScore() {
   });
 }
 
-
+/**
+ * Loads the high scores from the server and displays them.
+ */
 function loadHighscores() {
   $.get('/highscores', (data) => {
     $('#score-list').empty();

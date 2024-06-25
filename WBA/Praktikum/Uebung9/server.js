@@ -16,7 +16,9 @@ const pool = mariadb.createPool({
   connectionLimit: 5
 });
 
-// Test database connection
+/**
+ * Test the database connection.
+ */
 pool.getConnection()
   .then(conn => {
     console.log('Connected to database');
@@ -32,7 +34,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
-// API Endpunkt für Highscore-Speicherung
+/**
+ * API endpoint to save high score.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 app.post('/save-score', (req, res) => {
   const { playerName, score } = req.body;
   console.log('Request body:', req.body); // Log the request body
@@ -53,7 +59,11 @@ app.post('/save-score', (req, res) => {
     });
 });
 
-
+/**
+ * API endpoint to get high scores.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 app.get('/highscores', (req, res) => {
   const query = 'SELECT * FROM highscores ORDER BY score DESC';
   pool.query(query)
@@ -68,6 +78,12 @@ app.get('/highscores', (req, res) => {
 
 const port = 3000; // Use a different port than 3306
 const hostname = 'localhost';
+/**
+ * Start the server.
+ * @param {number} port - The port number.
+ * @param {string} hostname - The hostname.
+ * @param {Function} callback - The callback function.
+ */
 app.listen(port, hostname, () => {
   console.log(`Server is running on http://${hostname}:${port}`);
 });
