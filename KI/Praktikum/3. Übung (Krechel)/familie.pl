@@ -43,16 +43,4 @@ ancestor(A, D) :- parent(A, X), ancestor(X, D).
 
 % Who are Pat's grandparents?
 ?- grandparent(X, pat).
-
-% Who are Pat's descendants?
-?- descendant(pat, X).
-
-% Who is Pat's mother?
-?- mother(X, pat).
-
-% Who is Liz's sister?
-?- sister(X, liz).
-
-% Who are Jim's ancestors?
-?- ancestor(X, jim).
 ***/
