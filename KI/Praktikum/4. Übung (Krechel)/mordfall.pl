@@ -38,11 +38,7 @@ ueberrascht_bei_verbrechen(klaus, wolfgang).
 % Bestätigtes Alibi
 hat_bestaetigtes_alibi(Person, Tag) :-
     alibi(Person, Tag),
-    bestaetigt(bernd, Person, Tag),
-    \+nicht_glaubwuerdig(Person).
-hat_bestaetigtes_alibi(Person, Tag) :-
-    alibi(Person, Tag),
-    bestaetigt(georg, Person, Tag),
+    bestaetigt(B, Person, Tag),
     \+nicht_glaubwuerdig(Person).
 
 % Motiv
@@ -61,20 +57,30 @@ moerder(Person, Opfer, Tag) :-
     besitzt_pistole(Person),
     \+hat_bestaetigtes_alibi(Person, Tag).
 
+% Hilfsprädikate zur Überprüfung der Fakten
+has_motive(Person) :-
+    motiv(Person, klaus).
+
+owns_gun(Person) :-
+    besitzt_pistole(Person).
+
+no_alibi(Person, Tag) :-
+    \+hat_bestaetigtes_alibi(Person, Tag).
+
 % Mörder finden
 loesefall(Moerder) :-
     moerder(Moerder, klaus, dienstag).
 
 % Prädikat zum Lösen des Falls
-solve_case(Murderer, Day) :-
-    murderer(Murderer),
-    Day = tuesday,
-    write('The murderer is: '), write(Murderer), nl,
-    write('The day of the murder is: '), write(Day), nl,
+solve_case(Moerder) :-
+    loesefall(Moerder),
+    write('The murderer is: '), write(Moerder), nl,
     write('Facts about the murderer:'), nl,
-    (has_motive(Murderer) -> write(' - Has a motive'), nl; true),
-    (owns_gun(Murderer) -> write(' - Owns a gun'), nl; true),
-    (no_alibi(Murderer, Day) -> write(' - Has no alibi for the day of the murder'), nl; true).
-
-% Query um Fall zu lösen
-solve_case(X, Y).
+    (has_motive(Moerder) -> write(' - Has a motive'), nl; true),
+    (owns_gun(Moerder) -> write(' - Owns a gun'), nl; true),
+    (no_alibi(Moerder, dienstag) -> write(' - Has no alibi for the day of the murder'), nl; true).
+    
+/***
+% Query um den Mörder zu finden
+:- solve_case(_).
+***/
